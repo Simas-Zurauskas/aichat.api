@@ -45,12 +45,10 @@ export const getGoogleTokens: GetTokens = async ({ code, clientId, clientSecret,
 // @access Public
 export const googleCallback = asynchandler(async (req, res) => {
   try {
-    // const baseUrl = NODE_ENV === 'production' ? 'https' : 'http' + '://' + req.get('host');
     const baseUrl = PROTOCOL + '://' + req.get('host');
     const code = req.query.code;
 
     console.log('REDIRECT_URI>googleCallback', `${baseUrl}/api/auth/google/callback`);
-    console.log('ENV>', process.env);
 
     const tokens = await getGoogleTokens({
       code: code as string,
