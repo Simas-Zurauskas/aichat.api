@@ -1,5 +1,5 @@
 import { createRetrievalChain } from 'langchain/chains/retrieval';
-import { llm } from 'src/ai/client';
+import { llm } from './client';
 import { ChatPromptTemplate, MessagesPlaceholder } from '@langchain/core/prompts';
 import { createStuffDocumentsChain } from 'langchain/chains/combine_documents';
 import { vectorStore } from './vectorStores';
