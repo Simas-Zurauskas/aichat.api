@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  cyclical-tasks-api:
+    build:
+      context: .
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/usr/src/app
+    command: yarn dev

@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "jsx": "react",
+    "outDir": "build",
+    "rootDir": "src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "sourceMap": false,
+    "inlineSourceMap": false,
+    "paths": {
+      "@ai/*": ["src/ai/*"],
+      "@routes/*": ["src/routes/*"],
+      "@controlers/*": ["src/controlers/*"],
+      "@services/*": ["src/services/*"],
+      "@util/*": ["src/util/*"],
+      "@jsx-templates/*": ["src/jsx-templates/*"],
+      "@css/*": ["src/css/*"],
+      "@middleware/*": ["src/middleware/*"],
+      "@conf/*": ["src/conf/*"],
+      "@models/*": ["src/models/*"],
+      "@jobs/*": ["src/jobs/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
