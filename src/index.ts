@@ -34,6 +34,10 @@ app.use(helmet());
 app.use(cors({ origin: '*' }));
 app.use(express.json({ limit: '20mb' }));
 
+app.get('/_health', (req, res) => {
+  res.send('ok');
+});
+
 app.get('/', (req, res) => {
   res.send('ok');
 });
