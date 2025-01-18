@@ -1,4 +1,5 @@
 export const NODE_ENV = process.env.NODE_ENV;
+export const PROTOCOL = process.env.PROTOCOL || 'https';
 export const PORT = process.env.PORT || 4000;
 export const GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token';
 export const GOOGLE_USERINFO_URL = 'https://www.googleapis.com/oauth2/v3/userinfo';
