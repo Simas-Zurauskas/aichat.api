@@ -44,7 +44,8 @@ export const getGoogleTokens: GetTokens = async ({ code, clientId, clientSecret,
 // @access Public
 export const googleCallback = asynchandler(async (req, res) => {
   try {
-    const baseUrl = process.env.NODE_ENV === 'production' ? 'https' : 'http' + '://' + req.get('host');
+    // const baseUrl = process.env.NODE_ENV === 'production' ? 'https' : 'http' + '://' + req.get('host');
+    const baseUrl = 'https' + '://' + req.get('host');
     const code = req.query.code;
 
     console.log('REDIRECT_URI>googleCallback', `${baseUrl}/api/auth/google/callback`);
