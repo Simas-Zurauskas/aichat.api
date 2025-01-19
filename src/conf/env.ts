@@ -1,11 +1,17 @@
+import _ from 'lodash';
+
+const maxJobs = process.env.MAX_JOBS as string;
+const jobInterval = process.env.JOB_INTERVAL as string;
+const usageMaxVectorOps = process.env.USAGE_MAX_VECTOR_OPS as string;
+
 export const NODE_ENV = process.env.NODE_ENV;
 export const PROTOCOL = process.env.PROTOCOL || 'https';
 export const PORT = process.env.PORT || 4000;
 export const GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token';
 export const GOOGLE_USERINFO_URL = 'https://www.googleapis.com/oauth2/v3/userinfo';
-export const MAX_JOBS = 3;
-export const JOB_INTERVAL = 1000;
-export const USAGE_MAX_VECTOR_OPS = 50000;
+export const MAX_JOBS = _.isInteger(_.parseInt(maxJobs)) ? _.parseInt(maxJobs) : 3;
+export const JOB_INTERVAL = _.isInteger(_.parseInt(jobInterval)) ? _.parseInt(jobInterval) : 1000;
+export const USAGE_MAX_VECTOR_OPS = _.isNumber(_.parseInt(usageMaxVectorOps)) ? _.parseInt(usageMaxVectorOps) : 50000;
 export const FE_CLIENT_URL = process.env.FE_CLIENT_URL as string;
 
 export const MONGO_URI = process.env.MONGO_URI as string;

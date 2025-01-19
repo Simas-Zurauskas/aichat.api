@@ -9,11 +9,12 @@ import { authRoutes } from '@routes/authRoutes';
 import connectDB from '@conf/mongo';
 import { JOB_INTERVAL, PORT } from '@conf/env';
 import { instancesRoutes } from '@routes/instancesRoutes';
-import { processJobs } from '@services/jobs/worker';
+import { limit, processJobs } from '@services/jobs/worker';
 import { jobsQueue } from '@services/jobs/queue';
 import { crearInstances } from './scripts';
 import { resetUserUsage } from './scripts/resetUserUsage';
 import { accountRoutes } from '@routes/accountRoutes';
+import _ from 'lodash';
 
 connectDB().finally(() => {
   setInterval(() => {
@@ -47,7 +48,14 @@ app.use('/api/auth', authRoutes);
 app.use('/api/instances', instancesRoutes);
 
 app.use('/debug/jobsqueue', (req, res) => {
-  res.send(jobsQueue);
+  res.send({
+    jobsQueue,
+    limit: {
+      pendingCount: limit?.pendingCount,
+      activeCount: limit?.activeCount,
+      length: limit?.length,
+    },
+  });
 });
 
 app.use(errorHandler);
