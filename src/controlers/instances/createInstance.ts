@@ -24,6 +24,7 @@ export const createInstance = asynchandler(async (req, res) => {
     const name = req.body.name;
     const context = req.body.context;
     const userSettings = req.body.userSettings;
+    const llm = req.body.llm;
 
     const supportedFiles = files?.filter(
       (el) =>
@@ -41,6 +42,7 @@ export const createInstance = asynchandler(async (req, res) => {
       name,
       files: [],
       userSettings,
+      llm,
     });
 
     for (const el of supportedFiles) {
