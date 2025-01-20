@@ -1,8 +1,10 @@
 import { createRetrievalChain } from 'langchain/chains/retrieval';
-import { llm } from './client';
+import { llmGemini, llmGpt4o } from './client';
 import { ChatPromptTemplate, MessagesPlaceholder } from '@langchain/core/prompts';
 import { createStuffDocumentsChain } from 'langchain/chains/combine_documents';
 import { vectorStore } from './vectorStores';
+import { LanguageModelLike } from '@langchain/core/language_models/base';
+import { LLM } from '@models/Instance';
 
 const questionAnsweringPrompt = ChatPromptTemplate.fromMessages([
   [
@@ -20,7 +22,22 @@ const questionAnsweringPrompt = ChatPromptTemplate.fromMessages([
   ['human', '{input}'],
 ]);
 
-export const createRChain = async (instanceId: string) => {
+export const createRChain = async (params: { instanceId: string; llmId: LLM }) => {
+  const { instanceId, llmId } = params;
+
+  let llm: LanguageModelLike;
+
+  switch (llmId) {
+    case LLM.GPT4O:
+      llm = llmGpt4o;
+      break;
+    case LLM.GEMINI15PRO:
+      llm = llmGemini;
+      break;
+    default:
+      throw new Error(`Unsupported LLM: ${llmId}`);
+  }
+
   const retriever = vectorStore.asRetriever({
     k: 10,
     filter: {

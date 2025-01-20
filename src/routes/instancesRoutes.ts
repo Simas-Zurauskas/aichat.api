@@ -1,5 +1,12 @@
 import express from 'express';
-import { createInstance, deleteInstance, getInstance, getInstances, updateInstance } from '@controlers/instances';
+import {
+  createInstance,
+  deleteInstance,
+  getInstance,
+  getInstances,
+  setLLM,
+  updateInstance,
+} from '@controlers/instances';
 import { delChat, getChat, sendChatMessage } from '@controlers/instances/chat';
 import { owner, protect } from '@middleware/authMiddleware';
 import upload from '@conf/multer';
@@ -13,6 +20,7 @@ router.post('/', protect, upload.array('files'), createInstance);
 router.get('/:uxId', protect, owner, getInstance);
 router.delete('/:uxId', protect, owner, deleteInstance);
 router.put('/:uxId', protect, owner, updateInstance);
+router.put('/:uxId/llm', protect, owner, setLLM);
 router.get('/:uxId/chat', protect, owner, getChat);
 router.post('/:uxId/chat', protect, owner, sendChatMessage);
 router.delete('/:uxId/chat', protect, owner, delChat);

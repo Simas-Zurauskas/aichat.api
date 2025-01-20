@@ -3,3 +3,4 @@ export * from './deleteInstance';
 export * from './getInstances';
 export * from './getInstance';
 export * from './updateInstance';
+export * from './setLLM';

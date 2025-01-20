@@ -27,3 +27,5 @@ export const AWS_BUCKET_NAME = process.env.AWS_BUCKET_NAME as string;
 export const AWS_BUCKET_REGION = process.env.AWS_BUCKET_REGION as string;
 export const PINECONE_API_KEY = process.env.PINECONE_API_KEY as string;
 export const PINECONE_INDEX_NAME = process.env.PINECONE_INDEX_NAME as string;
+
+export const GEMINI_API_KEY = process.env.GEMINI_API_KEY as string;

@@ -10,6 +10,11 @@ export interface Message {
   date: Date;
 }
 
+export enum LLM {
+  GPT4O = 'gpt-4o',
+  GEMINI15PRO = 'gemini-1.5-pro',
+}
+
 export interface InstanceInput<T = string> {
   uxId: string;
   userId: string;
@@ -17,6 +22,7 @@ export interface InstanceInput<T = string> {
   userSettings: string;
   files: (T | null)[];
   chat: Message[];
+  llm: LLM;
   deleteAt: string;
 }
 
@@ -41,6 +47,7 @@ const instanceSchema = new mongoose.Schema(
         date: { type: Date, required: true },
       },
     ],
+    llm: { type: String, enum: [LLM.GPT4O, LLM.GEMINI15PRO], required: true, default: LLM.GPT4O },
     deleteAt: { type: Date, default: moment().add(1, 'hour').toDate() },
   },
   { timestamps: true },

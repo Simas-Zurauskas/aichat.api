@@ -41,7 +41,7 @@ export const sendChatMessage = asynchandler(async (req, res) => {
       throw new Error('Instance not found');
     }
 
-    const rchain = await createRChain(instance._id.toString());
+    const rchain = await createRChain({ instanceId: instance._id.toString(), llmId: instance.llm });
 
     const truncatedHistory = buildHistoryByWords(instance.chat, 20000);
 
