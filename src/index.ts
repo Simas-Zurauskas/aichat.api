@@ -15,6 +15,8 @@ import { crearInstances } from './scripts';
 import { resetUserUsage } from './scripts/resetUserUsage';
 import { accountRoutes } from '@routes/accountRoutes';
 import _ from 'lodash';
+import mt from 'moment-timezone';
+mt.tz.setDefault('UTC');
 
 connectDB().finally(() => {
   setInterval(() => {
