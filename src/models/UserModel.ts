@@ -7,7 +7,7 @@ export interface UserInput {
   email: string;
   authSecret: string;
   usage: {
-    cycleReset: Date;
+    cycleReset: string;
     vectorOpsLimit: number;
     vectorOps: number;
   };
@@ -25,7 +25,7 @@ const schema = new Schema<User>(
     email: { type: String, required: true, unique: true },
     authSecret: { type: String, required: true },
     usage: {
-      cycleReset: { type: Date, default: moment().add(1, 'hour').toDate() },
+      cycleReset: { type: Date, default: moment().add(1, 'hour').toISOString() },
       vectorOpsLimit: { type: Number, default: USAGE_MAX_VECTOR_OPS },
       vectorOps: { type: Number, default: 0 },
     },

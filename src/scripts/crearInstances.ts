@@ -3,7 +3,7 @@ import { deleteFmService } from '@services/deleteFmService';
 import moment from 'moment';
 
 export const crearInstances = async () => {
-  const targetDate = moment().toDate();
+  const targetDate = moment().toISOString();
 
   const instances = await InstanceModel.find({
     deleteAt: { $lte: targetDate },
