@@ -25,11 +25,11 @@ connectDB().finally(() => {
 
   setInterval(() => {
     crearInstances();
-  }, 1000);
+  }, 1000 * 60 * 1);
 
   setInterval(() => {
     resetUserUsage();
-  }, 2000);
+  }, 1000 * 60 * 1.1);
 });
 
 const app = express();
