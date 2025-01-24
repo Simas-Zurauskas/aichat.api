@@ -12,7 +12,7 @@ export const resetUserUsage = async () => {
     console.log('resetUserUsage'.yellow.bold, el);
 
     el.usage.vectorOps = 0;
-    el.usage.cycleReset = moment().add(1, 'hour').toISOString();
+    el.usage.cycleReset = moment().add(1, 'month').toISOString();
     await el.save();
   });
 };

@@ -49,7 +49,7 @@ const instanceSchema = new mongoose.Schema(
       },
     ],
     llm: { type: String, enum: [LLM.GPT4O, LLM.GEMINI15PRO, LLM.R1], required: true, default: LLM.GPT4O },
-    deleteAt: { type: Date, default: moment().add(1, 'hour').toISOString() },
+    deleteAt: { type: Date, default: moment().add(1, 'month').toISOString() },
   },
   { timestamps: true },
 );
