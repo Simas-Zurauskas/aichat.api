@@ -18,6 +18,7 @@ export const llmGemini = new ChatGoogleGenerativeAI({
 
 export const llmGpt4o = new ChatOpenAI({
   model: 'gpt-4o',
+  temperature: 1,
   openAIApiKey: OPENAI_KEY,
 });
 
@@ -90,4 +91,10 @@ export class ChatDeepSeek extends BaseChatModel {
 
 export const llmDeepSeekR1 = new ChatDeepSeek(deepseek, {
   model: 'deepseek-reasoner',
+  temperature: 1,
+});
+
+export const llmDeepSeekV3 = new ChatDeepSeek(deepseek, {
+  model: 'deepseek-chat',
+  temperature: 1,
 });
