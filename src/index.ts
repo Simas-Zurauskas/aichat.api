@@ -16,7 +16,9 @@ import { resetUserUsage } from './scripts/resetUserUsage';
 import { accountRoutes } from '@routes/accountRoutes';
 import _ from 'lodash';
 import mt from 'moment-timezone';
-mt.tz.setDefault('UTC');
+mt.tz.setDefault('Europe/Vilnius');
+
+// console.log(mt.tz.names().filter((x) => x.includes('Europe')));
 
 connectDB().finally(() => {
   setInterval(() => {

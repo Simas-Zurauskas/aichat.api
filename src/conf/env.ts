@@ -15,7 +15,6 @@ export const USAGE_MAX_VECTOR_OPS = _.isInteger(_.parseInt(usageMaxVectorOps)) ?
 export const FE_CLIENT_URL = process.env.FE_CLIENT_URL as string;
 
 export const MONGO_URI = process.env.MONGO_URI as string;
-export const OPENAI_KEY = process.env.OPENAI_KEY as string;
 
 export const GOOGLE_OAUTH_CLIENT_ID = process.env.GOOGLE_OAUTH_CLIENT_ID as string;
 export const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET as string;
@@ -28,4 +27,6 @@ export const AWS_BUCKET_REGION = process.env.AWS_BUCKET_REGION as string;
 export const PINECONE_API_KEY = process.env.PINECONE_API_KEY as string;
 export const PINECONE_INDEX_NAME = process.env.PINECONE_INDEX_NAME as string;
 
+export const OPENAI_KEY = process.env.OPENAI_KEY as string;
 export const GEMINI_API_KEY = process.env.GEMINI_API_KEY as string;
+export const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY as string;
