@@ -13,7 +13,8 @@ export interface Message {
 export enum LLM {
   GPT4O = 'gpt-4o',
   GEMINI15PRO = 'gemini-1.5-pro',
-  R1 = 'r1',
+  R1 = 'deepSeekR1',
+  V3 = 'deepSeekV3',
 }
 
 export interface InstanceInput<T = string> {
@@ -48,7 +49,7 @@ const instanceSchema = new mongoose.Schema(
         date: { type: Date, required: true },
       },
     ],
-    llm: { type: String, enum: [LLM.GPT4O, LLM.GEMINI15PRO, LLM.R1], required: true, default: LLM.GPT4O },
+    llm: { type: String, enum: [LLM.GPT4O, LLM.GEMINI15PRO, LLM.R1, LLM.V3], required: true, default: LLM.GPT4O },
     deleteAt: { type: Date, default: moment().add(1, 'month').toISOString() },
   },
   { timestamps: true },

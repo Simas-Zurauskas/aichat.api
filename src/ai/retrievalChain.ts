@@ -1,5 +1,5 @@
 import { createRetrievalChain } from 'langchain/chains/retrieval';
-import { llmDeepSeekR1, llmGemini, llmGpt4o } from './client';
+import { llmDeepSeekR1, llmDeepSeekV3, llmGemini, llmGpt4o } from './client';
 import { ChatPromptTemplate, MessagesPlaceholder } from '@langchain/core/prompts';
 import { createStuffDocumentsChain } from 'langchain/chains/combine_documents';
 import { vectorStore } from './vectorStores';
@@ -36,6 +36,9 @@ export const createRChain = async (params: { instanceId: string; llmId: LLM }) =
       break;
     case LLM.R1:
       llm = llmDeepSeekR1;
+      break;
+    case LLM.V3:
+      llm = llmDeepSeekV3;
       break;
     default:
       throw new Error(`Unsupported LLM: ${llmId}`);
