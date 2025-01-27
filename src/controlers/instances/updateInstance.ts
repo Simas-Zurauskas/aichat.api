@@ -10,12 +10,7 @@ export const updateInstance = asynchandler(async (req, res) => {
     // @ts-ignore
     const userId = req.userId as string;
     const uxId = req.params.uxId;
-    const userSettings = req.body.userSettings as string;
-
-    if (!userSettings) {
-      res.status(400);
-      throw new Error('Bad request');
-    }
+    const userSettings = req.body.userSettings || ('' as string);
 
     const instance = await InstanceModel.findOneAndUpdate(
       {

@@ -11,7 +11,7 @@ export const GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token';
 export const GOOGLE_USERINFO_URL = 'https://www.googleapis.com/oauth2/v3/userinfo';
 export const MAX_JOBS = _.isInteger(_.parseInt(maxJobs)) ? _.parseInt(maxJobs) : 3;
 export const JOB_INTERVAL = _.isInteger(_.parseInt(jobInterval)) ? _.parseInt(jobInterval) : 1000;
-export const USAGE_MAX_VECTOR_OPS = _.isInteger(_.parseInt(usageMaxVectorOps)) ? _.parseInt(usageMaxVectorOps) : 50000;
+export const USAGE_MAX_VECTOR_OPS = _.isInteger(_.parseInt(usageMaxVectorOps)) ? _.parseInt(usageMaxVectorOps) : 20000;
 export const FE_CLIENT_URL = process.env.FE_CLIENT_URL as string;
 
 export const MONGO_URI = process.env.MONGO_URI as string;

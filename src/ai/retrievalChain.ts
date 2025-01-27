@@ -45,7 +45,7 @@ export const createRChain = async (params: { instanceId: string; llmId: LLM }) =
   }
 
   const retriever = vectorStore.asRetriever({
-    k: 15,
+    k: 10,
     filter: {
       instanceId,
     },
