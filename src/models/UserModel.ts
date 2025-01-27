@@ -25,7 +25,10 @@ const schema = new Schema<User>(
     email: { type: String, required: true, unique: true },
     authSecret: { type: String, required: true },
     usage: {
-      cycleReset: { type: Date, default: moment().add(1, 'month').toISOString() },
+      cycleReset: {
+        type: Date,
+        default: moment().add(1, 'month').endOf('day').add(1, 'second').startOf('day').toISOString(),
+      },
       vectorOpsLimit: { type: Number, default: USAGE_MAX_VECTOR_OPS },
       vectorOps: { type: Number, default: 0 },
     },

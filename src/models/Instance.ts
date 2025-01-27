@@ -26,6 +26,7 @@ export interface InstanceInput<T = string> {
   chat: Message[];
   llm: LLM;
   deleteAt: string;
+  temperature: number;
 }
 
 export interface Instance extends InstanceInput, Document {
@@ -50,7 +51,11 @@ const instanceSchema = new mongoose.Schema(
       },
     ],
     llm: { type: String, enum: [LLM.GPT4O, LLM.GEMINI15PRO, LLM.R1, LLM.V3], required: true, default: LLM.GPT4O },
-    deleteAt: { type: Date, default: moment().add(1, 'month').toISOString() },
+    deleteAt: {
+      type: Date,
+      default: moment().add(1, 'month').endOf('day').add(1, 'second').startOf('day').toISOString(),
+    },
+    temperature: { type: Number, required: true, default: 0.7 },
   },
   { timestamps: true },
 );

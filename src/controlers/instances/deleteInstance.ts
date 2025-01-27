@@ -19,7 +19,7 @@ export const deleteInstance = asynchandler(async (req, res) => {
 
       res.status(204).json({});
     } else {
-      throw new Error('Instance not found');
+      throw new Error('Node not found');
     }
   } catch (error: any) {
     console.log('ERROR', error);

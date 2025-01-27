@@ -24,13 +24,18 @@ export const uploadFiles = asynchandler(async (req, res) => {
       throw new Error('Unsupported file type');
     }
 
-    const instance = await InstanceModel.findOne({ uxId: req.params.uxId });
+    const instance = await InstanceModel.findOne({ uxId: req.params.uxId }).populate('files');
 
     if (!instance) {
-      throw new Error('Instance not found');
+      throw new Error('Node not found');
     }
 
-    for (const el of supportedFiles) {
+    const filteredFiles = supportedFiles.filter(
+      // @ts-ignore
+      (el) => !instance.files.map((el) => el?.originalName).includes(el?.originalname),
+    );
+
+    for (const el of filteredFiles) {
       const fm = await FileMeta.create({
         userId,
         instanceId: instance._id,

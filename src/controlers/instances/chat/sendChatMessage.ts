@@ -38,7 +38,7 @@ export const sendChatMessage = asynchandler(async (req, res) => {
 
     if (!instance) {
       res.status(404);
-      throw new Error('Instance not found');
+      throw new Error('Node not found');
     }
 
     const rchain = await createRChain({ instanceId: instance._id.toString(), llmId: instance.llm });

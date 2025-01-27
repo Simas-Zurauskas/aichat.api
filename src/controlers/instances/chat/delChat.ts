@@ -12,7 +12,7 @@ export const delChat = asynchandler(async (req, res) => {
 
     if (!instance) {
       res.status(404);
-      throw new Error('Instance not found');
+      throw new Error('Node not found');
     }
 
     res.json({ data: instance.chat });

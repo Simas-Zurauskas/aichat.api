@@ -29,23 +29,23 @@ export const createRChain = async (params: { instanceId: string; llmId: LLM }) =
 
   switch (llmId) {
     case LLM.GPT4O:
-      llm = llmGpt4o;
+      llm = llmGpt4o(0.7);
       break;
     case LLM.GEMINI15PRO:
-      llm = llmGemini;
+      llm = llmGemini(1);
       break;
     case LLM.R1:
-      llm = llmDeepSeekR1;
+      llm = llmDeepSeekR1(1);
       break;
     case LLM.V3:
-      llm = llmDeepSeekV3;
+      llm = llmDeepSeekV3(1);
       break;
     default:
       throw new Error(`Unsupported LLM: ${llmId}`);
   }
 
   const retriever = vectorStore.asRetriever({
-    k: 10,
+    k: 15,
     filter: {
       instanceId,
     },

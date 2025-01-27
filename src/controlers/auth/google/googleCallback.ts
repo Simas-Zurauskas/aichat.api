@@ -47,6 +47,8 @@ export const googleCallback = asynchandler(async (req, res) => {
   try {
     const baseUrl = PROTOCOL + '://' + req.get('host');
     const code = req.query.code;
+    const state = req.query.state as 'signup' | 'signin';
+    console.log('query'.bgBlue, req.query);
 
     console.log('REDIRECT_URI>googleCallback', `${baseUrl}/api/auth/google/callback`);
 
@@ -73,6 +75,10 @@ export const googleCallback = asynchandler(async (req, res) => {
       const token = generateAuthToken(existingUser._id, existingUser.authSecret);
       res.redirect(`${FE_CLIENT_URL}/auth?token=${token}`);
     } else {
+      if (state === 'signin') {
+        res.redirect(`${FE_CLIENT_URL}/auth?error=User does not exist. Please register first.`);
+        return;
+      }
       const authSecret = crypto.randomUUID();
 
       const user = await UserModel.create({

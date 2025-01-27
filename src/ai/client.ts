@@ -6,21 +6,29 @@ import { BaseChatModel } from '@langchain/core/language_models/chat_models';
 import { AIMessage, ChatMessage } from '@langchain/core/messages';
 import { ChatResult } from '@langchain/core/outputs';
 
+const interpolate = (value: number, range: [number, number]): number => {
+  const clampedValue = Math.max(0, Math.min(1, value));
+  return range[0] + clampedValue * (range[1] - range[0]);
+};
+
 const deepseek = new OpenAI({
   baseURL: 'https://api.deepseek.com',
   apiKey: DEEPSEEK_API_KEY,
 });
 
-export const llmGemini = new ChatGoogleGenerativeAI({
-  modelName: 'gemini-1.5-pro',
-  apiKey: GEMINI_API_KEY,
-});
+export const llmGemini = (t: number) =>
+  new ChatGoogleGenerativeAI({
+    modelName: 'gemini-1.5-pro',
+    temperature: interpolate(t, [0, 1]),
+    apiKey: GEMINI_API_KEY,
+  });
 
-export const llmGpt4o = new ChatOpenAI({
-  model: 'gpt-4o',
-  temperature: 1,
-  openAIApiKey: OPENAI_KEY,
-});
+export const llmGpt4o = (t: number) =>
+  new ChatOpenAI({
+    model: 'gpt-4o',
+    temperature: interpolate(t, [0, 2]),
+    openAIApiKey: OPENAI_KEY,
+  });
 
 // ---------------------------------------------------
 interface ChatDeepSeekParams {
@@ -89,12 +97,14 @@ export class ChatDeepSeek extends BaseChatModel {
   }
 }
 
-export const llmDeepSeekR1 = new ChatDeepSeek(deepseek, {
-  model: 'deepseek-reasoner',
-  temperature: 1,
-});
+export const llmDeepSeekR1 = (t: number) =>
+  new ChatDeepSeek(deepseek, {
+    model: 'deepseek-reasoner',
+    temperature: interpolate(t, [0, 2]),
+  });
 
-export const llmDeepSeekV3 = new ChatDeepSeek(deepseek, {
-  model: 'deepseek-chat',
-  temperature: 1,
-});
+export const llmDeepSeekV3 = (t: number) =>
+  new ChatDeepSeek(deepseek, {
+    model: 'deepseek-chat',
+    temperature: interpolate(t, [0, 2]),
+  });

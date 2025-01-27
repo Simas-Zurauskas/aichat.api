@@ -1,29 +1,27 @@
 import asynchandler from 'express-async-handler';
-import { FileMetaInput } from '@models/FileMeta';
-import InstanceModel, { InstanceInput } from '@models/Instance';
+import InstanceModel from '@models/Instance';
 import _ from 'lodash';
 // ------------------------------------------------------------------
-// @route PUT /api/instance/:uxId
+// @route PUT /api/instance/:uxId/temperature
 // @access Private, Owner
-export const updateInstance = asynchandler(async (req, res) => {
+export const setTemperature = asynchandler(async (req, res) => {
   try {
-    // @ts-ignore
-    const userId = req.userId as string;
     const uxId = req.params.uxId;
-    const userSettings = req.body.userSettings as string;
+    const temperature = Number(req.body.temperature);
 
-    if (!userSettings) {
+    if (temperature < 0 || temperature > 1) {
       res.status(400);
-      throw new Error('Bad request');
+      throw new Error('Temperature must be between 0 and 1');
     }
 
     const instance = await InstanceModel.findOneAndUpdate(
       {
         uxId,
-        user: userId,
       },
-      { userSettings },
-    );
+      {
+        temperature,
+      },
+    ).lean();
 
     if (!instance) {
       res.status(404);
@@ -31,7 +29,7 @@ export const updateInstance = asynchandler(async (req, res) => {
     }
 
     res.status(200).json({
-      data: 'ok',
+      data: null,
     });
   } catch (error: any) {
     console.log('ERROR', error);

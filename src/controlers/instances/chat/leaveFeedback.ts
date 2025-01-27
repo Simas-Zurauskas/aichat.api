@@ -16,7 +16,7 @@ export const leaveFeedback = asynchandler(async (req, res) => {
 
     if (!updatedInstance) {
       res.status(404);
-      throw new Error('Instance or message not found');
+      throw new Error('Node or message not found');
     }
 
     res.json({ data: 'ok' });

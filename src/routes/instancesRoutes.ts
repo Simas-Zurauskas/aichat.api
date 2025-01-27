@@ -2,9 +2,11 @@ import express from 'express';
 import {
   createInstance,
   deleteInstance,
+  extendAccess,
   getInstance,
   getInstances,
   setLLM,
+  setTemperature,
   updateInstance,
 } from '@controlers/instances';
 import { delChat, getChat, sendChatMessage } from '@controlers/instances/chat';
@@ -21,6 +23,8 @@ router.get('/:uxId', protect, owner, getInstance);
 router.delete('/:uxId', protect, owner, deleteInstance);
 router.put('/:uxId', protect, owner, updateInstance);
 router.put('/:uxId/llm', protect, owner, setLLM);
+router.put('/:uxId/temperature', protect, owner, setTemperature);
+router.put('/:uxId/extend', protect, owner, extendAccess);
 router.get('/:uxId/chat', protect, owner, getChat);
 router.post('/:uxId/chat', protect, owner, sendChatMessage);
 router.delete('/:uxId/chat', protect, owner, delChat);

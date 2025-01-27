@@ -1,17 +1,8 @@
 import asynchandler from 'express-async-handler';
-import { CharacterTextSplitter, RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
-import { PDFLoader } from '@langchain/community/document_loaders/fs/pdf';
-import { uploadFile as uploadS3 } from '@conf/s3';
-import { genHashId, genUxId } from '@util/misc';
+import { genUxId } from '@util/misc';
 import FileMeta from '@models/FileMeta';
-import { vectorStore } from '@ai/vectorStores';
 import InstanceModel from '@models/Instance';
 import { addJobToQueue } from '@services/jobs/queue';
-
-const textSplitter = new RecursiveCharacterTextSplitter({
-  chunkSize: 500,
-  chunkOverlap: 100,
-});
 
 // ------------------------------------------------------------------
 // @route POST /api/instances
@@ -25,6 +16,7 @@ export const createInstance = asynchandler(async (req, res) => {
     const context = req.body.context;
     const userSettings = req.body.userSettings;
     const llm = req.body.llm;
+    const temperature = Number(req.body.temperature);
 
     const supportedFiles = files?.filter(
       (el) =>
@@ -33,7 +25,20 @@ export const createInstance = asynchandler(async (req, res) => {
     );
 
     if (!supportedFiles.length) {
+      res.status(400);
       throw new Error('Unsupported file type');
+    }
+
+    if (temperature < 0 || temperature > 1) {
+      res.status(400);
+      throw new Error('Temperature must be between 0 and 1');
+    }
+
+    const totalInstances = await InstanceModel.countDocuments({ userId });
+
+    if (totalInstances >= 6) {
+      res.status(400);
+      throw new Error('Max instances reached');
     }
 
     const instance = await InstanceModel.create({
@@ -43,6 +48,7 @@ export const createInstance = asynchandler(async (req, res) => {
       files: [],
       userSettings,
       llm,
+      temperature,
     });
 
     for (const el of supportedFiles) {

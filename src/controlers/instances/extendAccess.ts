@@ -2,28 +2,22 @@ import asynchandler from 'express-async-handler';
 import { FileMetaInput } from '@models/FileMeta';
 import InstanceModel, { InstanceInput } from '@models/Instance';
 import _ from 'lodash';
+import moment from 'moment';
 // ------------------------------------------------------------------
-// @route PUT /api/instance/:uxId
+// @route PUT /api/instance/:uxId/extend
 // @access Private, Owner
-export const updateInstance = asynchandler(async (req, res) => {
+export const extendAccess = asynchandler(async (req, res) => {
   try {
-    // @ts-ignore
-    const userId = req.userId as string;
     const uxId = req.params.uxId;
-    const userSettings = req.body.userSettings as string;
-
-    if (!userSettings) {
-      res.status(400);
-      throw new Error('Bad request');
-    }
 
     const instance = await InstanceModel.findOneAndUpdate(
       {
         uxId,
-        user: userId,
       },
-      { userSettings },
-    );
+      {
+        deleteAt: moment().add(30, 'day').endOf('day').add(1, 'second').startOf('day').toISOString(),
+      },
+    ).lean();
 
     if (!instance) {
       res.status(404);
@@ -31,7 +25,7 @@ export const updateInstance = asynchandler(async (req, res) => {
     }
 
     res.status(200).json({
-      data: 'ok',
+      data: null,
     });
   } catch (error: any) {
     console.log('ERROR', error);
