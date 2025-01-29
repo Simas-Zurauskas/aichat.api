@@ -16,7 +16,15 @@ import { resetUserUsage } from './scripts/resetUserUsage';
 import { accountRoutes } from '@routes/accountRoutes';
 import _ from 'lodash';
 import mt from 'moment-timezone';
+import rateLimit from 'express-rate-limit';
 mt.tz.setDefault('UTC');
+
+const limiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 // console.log(mt.tz.names().filter((x) => x.includes('Europe')));
 
@@ -35,6 +43,7 @@ connectDB().finally(() => {
 });
 
 const app = express();
+app.use(limiter);
 app.use(helmet());
 app.use(cors({ origin: '*' }));
 app.use(express.json({ limit: '20mb' }));
@@ -44,7 +53,7 @@ app.get('/_health', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.send('ok');
+  res.send('_ok');
 });
 
 app.use('/api/account', accountRoutes);

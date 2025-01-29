@@ -76,7 +76,7 @@ export const googleCallback = asynchandler(async (req, res) => {
       res.redirect(`${FE_CLIENT_URL}/auth?token=${token}`);
     } else {
       if (state === 'signin') {
-        res.redirect(`${FE_CLIENT_URL}/auth?error=User does not exist. Please register first.`);
+        res.redirect(`${FE_CLIENT_URL}/auth?error=Account not found. Please sign up to continue.`);
         return;
       }
       const authSecret = crypto.randomUUID();
